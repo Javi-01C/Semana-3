@@ -1,0 +1,97 @@
+#include <iostream>
+
+struct Nodo {
+    int dato;
+    Nodo* siguiente;
+    
+    Nodo(int v) {
+        dato = v;
+        siguiente = NULL;
+    }
+};
+
+class Lista {
+public:
+    Nodo* cabeza;
+
+    Lista() {
+        cabeza = NULL;
+    }
+
+    //  Insertar al inicio: O(1)
+    void insertarInicio(int v) {
+        Nodo* nuevo = new Nodo(v);
+        nuevo->siguiente = cabeza;
+        cabeza = nuevo;
+    }
+
+    //  Insertar al final: O(n)
+    void insertarFinal(int v) {
+        Nodo* nuevo = new Nodo(v);
+        if (cabeza == NULL) { 
+            cabeza = nuevo; 
+            return; 
+        }
+        
+        Nodo* temp = cabeza;
+        while (temp->siguiente != NULL) {
+            temp = temp->siguiente;
+        }
+        temp->siguiente = nuevo;
+    }
+
+    // Eliminar el primero: O(1)
+    void eliminarInicio() {
+        if (cabeza == NULL) return;
+        Nodo* aBorrar = cabeza;
+        cabeza = cabeza->siguiente;
+        delete aBorrar;
+    }
+
+    //  Buscar: O(n)
+    bool buscar(int v) {
+        Nodo* temp = cabeza;
+        while (temp != NULL) {
+            if (temp->dato == v) return true;
+            temp = temp->siguiente;
+        }
+        return false;
+    }
+
+    //  Mostrar lista
+    void imprimir() {
+        Nodo* temp = cabeza;
+        while (temp != NULL) {
+            std::cout << temp->dato << " -> ";
+            temp = temp->siguiente;
+        }
+        std::cout << "NULL" << std::endl;
+    }
+
+    ~Lista() {
+        while (cabeza != NULL) {
+            eliminarInicio();
+        }
+    }
+};
+
+int main() {
+    Lista l;
+    l.insertarInicio(10);
+    l.insertarFinal(20);
+    l.insertarInicio(5);
+    
+    std::cout << "Lista: ";
+    l.imprimir();
+    
+    if(l.buscar(10)) std::cout << "El 10 existe." << std::endl;
+    
+    l.eliminarInicio();
+    std::cout << "Post-eliminacion: ";
+    l.imprimir();
+    
+    return 0;
+}
+
+
+
