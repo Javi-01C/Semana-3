@@ -1,0 +1,21 @@
+  -¿Por qué no permite acceso O(1) por índice?
+La clave está en que son vecinos físicamente, en un arreglo Los elementos están pegados unos a otros en la memoria física. 
+Si sabes dónde empieza el arreglo y que cada número ocupa 4 bytes, para llegar al índice 100 solo haces una multiplicación: inicio + (100 * 4). Es un salto directo.
+
+En una Lista Enlazada los nodos están esparcidos por toda la memoria. El nodo 1 podría estar en una esquina y el nodo 2 en la otra. 
+La única forma de llegar al nodo 100 es preguntarle al 1 dónde está el 2, al 2 dónde está el 3... y así sucesivamente. No hay forma de saltar porque no conoces la dirección del nodo 100 hasta que visitas al 99.
+
+
+
+Insertar entre el Nodo 3 y el Nodo 4
+El patrón de asegurar antes de soltar:
+Para insertar un nuevo nodo X entre el 3 y el 4, los movimientos son:
+    - a): Apuntar el siguiente de X hacia el 4. (Ahora X ya tiene agarrado el resto de la fila).
+     -b): Apuntar el siguiente de 3 hacia X. (Ahora la cadena fluye a través de tu nuevo nodo).
+
+
+ -¿Por qué necesito el nodo ANTERIOR para eliminar?
+ Una analogia que me gusto mucho y se me hizo facil de entender due el problema del puente roto:
+Imagina que estás parado en el nodo que quieres eliminar (el actual). Tienes la dirección del siguiente, pero en una lista simple, los punteros son de una sola vía. 
+No tienes forma de mirar atrás para decirle al nodo anterior que ya no te apunte a ti y que apunte al siguiente.
+Entonces como no puedes gritar hacia atrás, necesitas una referencia al anterior para que él sea quien haga el salto sobre el nodo actual. Sin el anterior, no puedes cerrar el hueco que dejas al irte.
