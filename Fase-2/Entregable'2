@@ -1,0 +1,83 @@
+#include <iostream>
+
+struct Nodo {
+    int dato;
+    Nodo* siguiente;
+    Nodo(int v) {
+        dato = v;
+        siguiente = NULL;
+    }
+};
+
+class ListaEnlazada {
+public:
+    Nodo* cabeza;
+    ListaEnlazada() { cabeza = NULL; }
+
+    // auxiliar para llenar la lista
+    void insertarFinal(int v) {
+        Nodo* nuevo = new Nodo(v);
+        if (!cabeza) { cabeza = nuevo; return; }
+        Nodo* temp = cabeza;
+        while (temp->siguiente) temp = temp->siguiente;
+        temp->siguiente = nuevo;
+    }
+
+    // invertir la lista
+    void invertir() {
+        Nodo* anterior = NULL;
+        Nodo* actual = cabeza;
+        Nodo* siguiente = NULL;
+
+        while (actual != NULL) {
+            siguiente = actual->siguiente; 
+            actual->siguiente = anterior;  
+            anterior = actual;             
+            actual = siguiente;            
+        }
+        cabeza = anterior;
+    }
+
+    // encontrar el centro
+    int encontrarMedio() {
+        if (!cabeza) return -1;
+        
+        Nodo* lento = cabeza;
+        Nodo* rapido = cabeza;
+
+        while (rapido != NULL && rapido->siguiente != NULL) {
+            lento = lento->siguiente;          // 1 paso
+            rapido = rapido->siguiente->siguiente; // 2 pasos
+        }
+        return lento->dato; 
+    }
+
+    void imprimir() {
+        Nodo* temp = cabeza;
+        while (temp) {
+            std::cout << "[" << temp->dato << "] -> ";
+            temp = temp->siguiente;
+        }
+        std::cout << "NULL" << std::endl;
+    }
+};
+
+int main() {
+    ListaEnlazada lista;
+    for(int i=1; i<=5; i++) lista.insertarFinal(i); // Lista del 1 al 5
+
+    std::cout << "Original: "; lista.imprimir();
+    
+    std::cout << "El medio es: " << lista.encontrarMedio() << std::endl;
+
+    lista.invertir();
+    std::cout << "Invertida: "; lista.imprimir();
+
+    return 0;
+}
+
+
+
+
+
+
