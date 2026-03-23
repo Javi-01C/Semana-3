@@ -76,6 +76,7 @@ es estrictamente necesario guardar de forma temporal la dirección del nodo que 
 
 
 Codigo corregido:
+
 void eliminarInicio() {
         if (cabeza == NULL) return;
         
@@ -86,6 +87,7 @@ void eliminarInicio() {
 
 
 ---
+
 
 
 Método 3: buscar
@@ -115,7 +117,8 @@ IA: ¡Ahí está el bug! ¿Cómo podrías cambiar la condición para asegurarte 
      Yo: Debería cambiar la condición a while (temp != NULL). De esta forma, el ciclo entra, evalúa el dato actual, y hasta después intenta avanzar al siguiente, cubriendo toda la lista.
 
 Codigo corregido:
-bool buscar(int v) {
+
+    bool buscar(int v) {
         Nodo* temp = cabeza;
         while (temp != NULL) {
             if (temp->dato == v) return true;
