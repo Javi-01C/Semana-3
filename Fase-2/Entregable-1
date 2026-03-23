@@ -19,14 +19,14 @@ public:
         cabeza = NULL;
     }
 
-    //  Insertar al inicio: O(1)
+    // Insertar al inicio: O(1)
     void insertarInicio(int v) {
         Nodo* nuevo = new Nodo(v);
         nuevo->siguiente = cabeza;
         cabeza = nuevo;
     }
 
-    //  Insertar al final: O(n)
+    // Insertar al final
     void insertarFinal(int v) {
         Nodo* nuevo = new Nodo(v);
         if (cabeza == NULL) { 
@@ -34,32 +34,42 @@ public:
             return; 
         }
         
+        int tamano = 0;
+        Nodo* contador = cabeza;
+        while (contador != NULL) {
+            tamano++;
+            contador = contador->siguiente;
+        }
+        
         Nodo* temp = cabeza;
-        while (temp->siguiente != NULL) {
+        for (int i = 1; i < tamano; i++) {
             temp = temp->siguiente;
         }
         temp->siguiente = nuevo;
     }
 
-    // Eliminar el primero: O(1)
+    // Eliminar el primeroO(1)
     void eliminarInicio() {
         if (cabeza == NULL) return;
-        Nodo* aBorrar = cabeza;
-        cabeza = cabeza->siguiente;
-        delete aBorrar;
+        
+        cabeza = cabeza->siguiente; 
     }
 
-    //  Buscar: O(n)
+    // Buscar O(n)
     bool buscar(int v) {
+        if (cabeza == NULL) return false;
+        
         Nodo* temp = cabeza;
-        while (temp != NULL) {
-            if (temp->dato == v) return true;
+        while (temp->siguiente != NULL) {
+            if (temp->dato == v) {
+                return true;
+            }
             temp = temp->siguiente;
         }
         return false;
     }
 
-    //  Mostrar lista
+    // Mostrar lista
     void imprimir() {
         Nodo* temp = cabeza;
         while (temp != NULL) {
@@ -76,6 +86,7 @@ public:
     }
 };
 
+
 int main() {
     Lista l;
     l.insertarInicio(10);
@@ -83,9 +94,11 @@ int main() {
     l.insertarInicio(5);
     
     cout << "Lista: ";
-    l.imprimir();
+    l.imprimir(); 
+    
     
     if(l.buscar(10)) cout << "El 10 existe." << endl;
+    if(l.buscar(20)) cout << "El 20 existe." << endl; 
     
     l.eliminarInicio();
     cout << "Post-eliminacion: ";
