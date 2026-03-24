@@ -17,8 +17,9 @@
 ---
 
 2. Código Modificado
+3. 
 
-   #include <iostream>
+#include <iostream>
 using namespace std;
 
 struct Nodo {
